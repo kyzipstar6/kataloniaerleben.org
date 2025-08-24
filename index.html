@@ -1,0 +1,500 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Katalonien Erleben – Kultur, Touren & Blog (DE)</title>
+  <meta name="description" content="Deutschsprachige Kultur- und Reisetipps für Katalonien. Geführte Touren, individuelle Reiseplanung, Marktplatz für Erlebnisse, und Blog über katalanische Kultur." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <style>
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Helvetica Neue', 'Noto Sans', sans-serif; }
+    .glass { background: rgba(255,255,255,0.6); backdrop-filter: blur(8px); }
+    .container { max-width: 1100px; }
+  </style>
+  <!-- Open Graph -->
+  <meta property="og:title" content="Katalonien Erleben – Kultur, Touren & Blog" />
+  <meta property="og:description" content="Geführte Touren auf Deutsch, Marktplatz für Erlebnisse und Blog zur katalanischen Kultur." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1607887831708-7999140bf13a?q=80&w=1200&auto=format&fit=crop" />
+  
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Katalonien Erleben",
+    "url": "https://example.com",
+    "logo": "https://example.com/logo.png",
+    "sameAs": [
+      "https://www.instagram.com/",
+      "https://www.facebook.com/"
+    ]
+  }
+  </script>
+  <!-- PayPal SDK (replace YOUR_CLIENT_ID) -->
+  <script src="https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID&currency=EUR&intent=capture"></script>
+</head>
+<body class="bg-gradient-to-b from-red-50 via-white to-white text-slate-800" x-data="siteState()" x-init="init()">
+  <!-- Top Bar -->
+  <header class="sticky top-0 z-50 border-b border-slate-200/70 bg-white/80 backdrop-blur">
+    <div class="container mx-auto px-4 py-3 flex items-center gap-3">
+      <a href="#home" class="flex items-center gap-2 font-extrabold text-xl tracking-tight">
+        <span class="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-red-600 text-white">CE</span>
+        <span>Katalonien&nbsp;Erleben</span>
+      </a>
+      <nav class="ml-auto hidden md:flex items-center gap-6 text-[15px]">
+        <a href="#tours" class="hover:text-red-700">Touren</a>
+        <a href="#marketplace" class="hover:text-red-700">Marktplatz</a>
+        <a href="#blog" class="hover:text-red-700">Blog</a>
+        <a href="#about" class="hover:text-red-700">Über mich</a>
+        <a href="#contact" class="hover:text-red-700">Kontakt</a>
+      </nav>
+      <div class="ml-4 flex items-center gap-2">
+        <button @click="cartOpen = true" class="relative rounded-xl border px-3 py-1.5 text-sm hover:bg-slate-50">
+          Warenkorb
+          <span x-show="cart.length" class="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-red-600 text-white text-xs" x-text="cart.length"></span>
+        </button>
+        <select x-model="lang" class="rounded-xl border px-2 py-1 text-sm">
+          <option value="de">DE</option>
+          <option value="en">EN</option>
+          <option value="ca">CA</option>
+        </select>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section id="home" class="relative overflow-clip">
+    <img src="https://images.unsplash.com/photo-1519922639192-e73293ca4301?q=80&w=1974&auto=format&fit=crop" alt="Barcelona Rooftops" class="absolute inset-0 h-full w-full object-cover opacity-30" />
+    <div class="container mx-auto px-4 py-16 md:py-24 relative">
+      <div class="max-w-2xl">
+        <h1 class="text-4xl md:text-6xl font-extrabold leading-tight">Katalanische Kultur – <span class="text-red-700">auf Deutsch</span> erklärt.</h1>
+        <p class="mt-4 text-lg text-slate-700">Individuelle Touren, echte Geschichten, regionale Küche und ein Blog, der Hintergründe verständlich macht – für Reisende aus dem deutschsprachigen Raum.</p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="#tours" class="rounded-2xl bg-red-600 px-5 py-3 font-semibold text-white hover:bg-red-700">Geführte Touren ansehen</a>
+          <a href="#blog" class="rounded-2xl border px-5 py-3 font-semibold hover:bg-white">Zum Kultur‑Blog</a>
+        </div>
+        <div class="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+          <div class="glass rounded-2xl p-4">
+            <div class="font-bold">DE/CA/EN</div>
+            <div class="text-slate-600">Mehrsprachige Begleitung</div>
+          </div>
+          <div class="glass rounded-2xl p-4">
+            <div class="font-bold">Klein & authentisch</div>
+            <div class="text-slate-600">max. 8 Personen</div>
+          </div>
+          <div class="glass rounded-2xl p-4">
+            <div class="font-bold">Regionale Expert:innen</div>
+            <div class="text-slate-600">Netzwerk vor Ort</div>
+          </div>
+          <div class="glass rounded-2xl p-4">
+            <div class="font-bold">Faire Preise</div>
+            <div class="text-slate-600">Direkt & transparent</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tours (Services) -->
+  <section id="tours" class="container mx-auto px-4 py-16">
+    <div class="mb-8 flex items-end justify-between gap-4">
+      <div>
+        <h2 class="text-3xl md:text-4xl font-extrabold">Geführte Touren</h2>
+        <p class="text-slate-600">Kuratiert für deutschsprachige Besucher:innen. Privat oder kleine Gruppen.</p>
+      </div>
+      <div class="flex items-center gap-2">
+        <label class="text-sm text-slate-600">Dauer</label>
+        <select x-model="filters.duration" class="rounded-xl border px-3 py-2 text-sm">
+          <option value="">Alle</option>
+          <option>Halbtags</option>
+          <option>Ganztags</option>
+          <option>Mehrtagestour</option>
+        </select>
+        <label class="text-sm text-slate-600 ml-3">Thema</label>
+        <select x-model="filters.theme" class="rounded-xl border px-3 py-2 text-sm">
+          <option value="">Alle</option>
+          <option>Kulinarik</option>
+          <option>Geschichte</option>
+          <option>Natur</option>
+          <option>Architektur</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6">
+      <template x-for="tour in toursFiltered" :key="tour.id">
+        <article class="rounded-2xl border overflow-hidden bg-white shadow-sm">
+          <img :src="tour.image" :alt="tour.title" class="h-44 w-full object-cover" />
+          <div class="p-5">
+            <h3 class="font-bold text-lg" x-text="tour.title"></h3>
+            <p class="mt-1 text-sm text-slate-600" x-text="tour.subtitle"></p>
+            <div class="mt-3 flex items-center justify-between">
+              <span class="text-sm text-slate-700" x-text="tour.duration + ' · ' + tour.theme"></span>
+              <span class="font-semibold" x-text="Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(tour.price)"></span>
+            </div>
+            <div class="mt-4 flex gap-2">
+              <button @click="openQuickView(tour)" class="rounded-xl border px-3 py-2 text-sm hover:bg-slate-50">Details</button>
+              <button @click="addToCart(tour)" class="rounded-xl bg-red-600 px-3 py-2 text-sm font-semibold text-white hover:bg-red-700">In den Warenkorb</button>
+            </div>
+          </div>
+        </article>
+      </template>
+    </div>
+  </section>
+
+  <!-- Marketplace -->
+  <section id="marketplace" class="bg-slate-50/60 border-y">
+    <div class="container mx-auto px-4 py-16">
+      <div class="mb-8 flex items-end justify-between gap-4">
+        <div>
+          <h2 class="text-3xl md:text-4xl font-extrabold">Marktplatz für Erlebnisse</h2>
+          <p class="text-slate-600">Workshops, Tickets, regionale Produkte & digitale Guides.</p>
+        </div>
+        <div class="flex flex-wrap gap-2 items-center">
+          <input type="text" placeholder="Suchen…" x-model="market.search" class="rounded-xl border px-3 py-2 text-sm w-40" />
+          <select x-model="market.category" class="rounded-xl border px-3 py-2 text-sm">
+            <option value="">Kategorie</option>
+            <option>Workshop</option>
+            <option>Ticket</option>
+            <option>Produkt</option>
+            <option>Digitaler Guide</option>
+          </select>
+          <label class="text-sm text-slate-600 ml-2">Max. Preis</label>
+          <input type="range" min="10" max="200" x-model.number="market.maxPrice" />
+          <span class="text-sm" x-text="market.maxPrice + '€'"></span>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <template x-for="item in marketFiltered" :key="item.id">
+          <article class="rounded-2xl border overflow-hidden bg-white shadow-sm">
+            <img :src="item.image" :alt="item.title" class="h-44 w-full object-cover" />
+            <div class="p-5">
+              <div class="flex items-center justify-between">
+                <h3 class="font-bold" x-text="item.title"></h3>
+                <span class="text-xs rounded-full bg-slate-100 px-2 py-1" x-text="item.category"></span>
+              </div>
+              <p class="mt-1 text-sm text-slate-600" x-text="item.subtitle"></p>
+              <div class="mt-3 flex items-center justify-between">
+                <span class="font-semibold" x-text="Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(item.price)"></span>
+                <button @click="addToCart(item)" class="rounded-xl bg-red-600 px-3 py-2 text-sm font-semibold text-white hover:bg-red-700">Kaufen</button>
+              </div>
+            </div>
+          </article>
+        </template>
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog -->
+  <section id="blog" class="container mx-auto px-4 py-16">
+    <div class="mb-8 flex items-end justify-between gap-4">
+      <div>
+        <h2 class="text-3xl md:text-4xl font-extrabold">Blog: Kultur & Hintergründe</h2>
+        <p class="text-slate-600">Artikel auf Deutsch über Sprache, Traditionen, Geschichte und Reisen in Katalonien.</p>
+      </div>
+      <div class="flex items-center gap-2">
+        <input type="text" placeholder="Artikel suchen…" x-model="blog.search" class="rounded-xl border px-3 py-2 text-sm w-44" />
+        <select x-model="blog.tag" class="rounded-xl border px-3 py-2 text-sm">
+          <option value="">Alle Themen</option>
+          <option>Sprache</option>
+          <option>Feste</option>
+          <option>Geschichte</option>
+          <option>Essen & Trinken</option>
+          <option>Reiserouten</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6">
+      <template x-for="post in blogFiltered" :key="post.id">
+        <article class="rounded-2xl border overflow-hidden bg-white shadow-sm">
+          <img :src="post.image" :alt="post.title" class="h-40 w-full object-cover" />
+          <div class="p-5">
+            <div class="text-xs text-slate-500" x-text="post.date"></div>
+            <h3 class="mt-1 font-bold text-lg" x-text="post.title"></h3>
+            <div class="mt-1 text-xs text-slate-600" x-text="post.tag"></div>
+            <p class="mt-2 text-sm text-slate-700" x-text="post.excerpt"></p>
+            <button @click="openPost(post)" class="mt-3 rounded-xl border px-3 py-2 text-sm hover:bg-slate-50">Weiterlesen</button>
+          </div>
+        </article>
+      </template>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="bg-white border-y">
+    <div class="container mx-auto px-4 py-16 grid md:grid-cols-2 gap-10 items-center">
+      <div>
+        <h2 class="text-3xl md:text-4xl font-extrabold">Wer steckt dahinter?</h2>
+        <p class="mt-3 text-slate-700">Ich bin deutsch‑ und katalanischsprachiger Kulturvermittler mit langjähriger Erfahrung zwischen beiden Welten. Mein Ziel: Katalonien <em>authentisch</em> erlebbar machen – jenseits von Klischees. Für private Gruppen, Familien und Unternehmen.</p>
+        <ul class="mt-4 grid grid-cols-2 gap-3 text-sm">
+          <li class="rounded-2xl border p-3">Lizenzierte Partnerführer:innen</li>
+          <li class="rounded-2xl border p-3">Individuelle Reiserouten</li>
+          <li class="rounded-2xl border p-3">Übersetzung & Moderation</li>
+          <li class="rounded-2xl border p-3">Workshops & Team-Events</li>
+        </ul>
+      </div>
+      <img src="https://images.unsplash.com/photo-1578926374607-47ff6b991b12?q=80&w=1200&auto=format&fit=crop" alt="Guide" class="rounded-3xl shadow object-cover w-full h-80" />
+    </div>
+  </section>
+
+  <!-- Contact / Lead Capture -->
+  <section id="contact" class="container mx-auto px-4 py-16">
+    <div class="max-w-2xl">
+      <h2 class="text-3xl md:text-4xl font-extrabold">Anfrage & Beratung</h2>
+      <p class="mt-2 text-slate-700">Schreib mir auf Deutsch – ich plane gern eine passende Tour oder ein Kulturprogramm.</p>
+      <form class="mt-6 grid gap-3" @submit.prevent="submitLead">
+        <div class="grid md:grid-cols-2 gap-3">
+          <input class="rounded-xl border px-4 py-3" placeholder="Name" required />
+          <input class="rounded-xl border px-4 py-3" placeholder="E‑Mail" type="email" required />
+        </div>
+        <div class="grid md:grid-cols-3 gap-3">
+          <input class="rounded-xl border px-4 py-3" placeholder="Reisedaten" />
+          <input class="rounded-xl border px-4 py-3" placeholder="Personenanzahl" type="number" min="1" />
+          <select class="rounded-xl border px-4 py-3">
+            <option>Interesse wählen…</option>
+            <option>Geführte Tour</option>
+            <option>Individueller Plan</option>
+            <option>Workshop</option>
+          </select>
+        </div>
+        <textarea class="rounded-xl border px-4 py-3" placeholder="Was möchtet ihr erleben?" rows="5"></textarea>
+        <div class="flex items-center gap-3">
+          <button class="rounded-2xl bg-red-600 px-5 py-3 font-semibold text-white hover:bg-red-700">Unverbindlich anfragen</button>
+          <label class="text-xs text-slate-600"><input type="checkbox" class="mr-2">Newsletter abonnieren</label>
+        </div>
+        <p class="text-xs text-slate-500">Mit dem Absenden stimme ich der Verarbeitung meiner Daten gemäß der <a href="#legal" class="underline">Datenschutzerklärung</a> zu.</p>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer id="legal" class="border-t">
+    <div class="container mx-auto px-4 py-10 grid md:grid-cols-4 gap-8 text-sm">
+      <div>
+        <div class="font-extrabold text-lg">Katalonien Erleben</div>
+        <p class="mt-2 text-slate-600">Deutschsprachige Kulturvermittlung & Touren in Katalonien.</p>
+      </div>
+      <div>
+        <div class="font-bold">Sitemap</div>
+        <ul class="mt-2 space-y-1">
+          <li><a href="#tours" class="hover:underline">Touren</a></li>
+          <li><a href="#marketplace" class="hover:underline">Marktplatz</a></li>
+          <li><a href="#blog" class="hover:underline">Blog</a></li>
+          <li><a href="#about" class="hover:underline">Über mich</a></li>
+          <li><a href="#contact" class="hover:underline">Kontakt</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="font-bold">Rechtliches</div>
+        <ul class="mt-2 space-y-1">
+          <li><a href="#" class="hover:underline">Impressum</a></li>
+          <li><a href="#" class="hover:underline">Datenschutz</a></li>
+          <li><a href="#" class="hover:underline">AGB</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="font-bold">Kontakt</div>
+        <p class="mt-2 text-slate-600">E‑Mail: hallo@example.com<br>Barcelona, Spanien</p>
+        <div class="mt-3 flex gap-3">
+          <a href="#" class="underline">Instagram</a>
+          <a href="#" class="underline">YouTube</a>
+        </div>
+      </div>
+    </div>
+    <div class="py-6 text-center text-xs text-slate-500">© <span x-text="new Date().getFullYear()"></span> Katalonien Erleben</div>
+  </footer>
+
+  <!-- Quick View Modal for Tours/Items -->
+  <div x-show="quickView" x-transition class="fixed inset-0 z-50 grid place-items-center bg-black/40 p-4" @click.self="quickView = null">
+    <div class="max-w-xl w-full rounded-2xl bg-white shadow-xl overflow-hidden">
+      <img :src="quickView?.image" :alt="quickView?.title" class="h-56 w-full object-cover" />
+      <div class="p-5">
+        <h3 class="font-bold text-xl" x-text="quickView?.title"></h3>
+        <p class="mt-1 text-slate-700" x-text="quickView?.long"></p>
+        <div class="mt-4 flex items-center justify-between">
+          <span class="font-semibold" x-text="Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(quickView?.price || 0)"></span>
+          <button @click="addToCart(quickView)" class="rounded-xl bg-red-600 px-4 py-2 text-white font-semibold">In den Warenkorb</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Blog Post Modal -->
+  <div x-show="postOpen" x-transition class="fixed inset-0 z-50 grid place-items-center bg-black/40 p-4" @click.self="postOpen = null">
+    <article class="max-w-3xl w-full rounded-2xl bg-white shadow-xl overflow-hidden">
+      <img :src="activePost?.image" :alt="activePost?.title" class="h-64 w-full object-cover" />
+      <div class="p-6 md:p-8">
+        <div class="text-xs text-slate-500" x-text="activePost?.date + ' · ' + activePost?.tag"></div>
+        <h3 class="mt-1 font-extrabold text-2xl" x-text="activePost?.title"></h3>
+        <div class="prose prose-slate max-w-none mt-4" x-html="activePost?.content"></div>
+      </div>
+    </article>
+  </div>
+
+  <!-- Cart Drawer -->
+  <div class="fixed inset-y-0 right-0 z-50 w-full max-w-md bg-white shadow-2xl p-6 transform transition" :class="cartOpen ? 'translate-x-0' : 'translate-x-full'">
+    <div class="flex items-center justify-between">
+      <h3 class="font-extrabold text-xl">Warenkorb</h3>
+      <button @click="cartOpen=false" class="text-slate-500">Schließen</button>
+    </div>
+    <template x-if="!cart.length">
+      <p class="mt-6 text-slate-600">Dein Warenkorb ist leer.</p>
+    </template>
+    <div class="mt-4 space-y-4 max-h-[60vh] overflow-auto">
+      <template x-for="(item, idx) in cart" :key="idx">
+        <div class="flex gap-3 items-center border rounded-xl p-3">
+          <img :src="item.image" class="h-14 w-20 object-cover rounded-lg" />
+          <div class="flex-1">
+            <div class="font-semibold" x-text="item.title"></div>
+            <div class="text-sm text-slate-600" x-text="Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(item.price)"></div>
+          </div>
+          <button @click="cart.splice(idx,1)" class="text-xs underline">Entfernen</button>
+        </div>
+      </template>
+    </div>
+    <div class="mt-6 border-t pt-4">
+      <div class="flex items-center justify-between">
+        <span>Zwischensumme</span>
+        <span class="font-semibold" x-text="Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(cartTotal)"></span>
+      </div>
+      <div id="paypal-buttons" class="mt-4"></div>
+      <p class="mt-2 text-xs text-slate-500">Zahlung via PayPal (EUR). *Ersetze <code>YOUR_CLIENT_ID</code> im Code durch deinen PayPal‑Client‑ID.*</p>
+    </div>
+  </div>
+
+  <script>
+    function siteState() {
+      return {
+        lang: 'de',
+        filters: { duration: '', theme: '' },
+        market: { search: '', category: '', maxPrice: 120 },
+        blog: { search: '', tag: '' },
+        quickView: null,
+        cartOpen: false,
+        cart: [],
+        postOpen: false,
+        activePost: null,
+
+        tours: [
+          { id: 't1', title: 'Barcelona jenseits der Ramblas', subtitle: 'Architektur, lokale Märkte & Nachbarschaften', duration: 'Halbtags', theme: 'Architektur', price: 69, image: 'https://images.unsplash.com/photo-1526336024174-e58f5cdd8e13?q=80&w=1200&auto=format&fit=crop', long: 'Entdecke Barcelonas Quartiere abseits der üblichen Pfade. Wir sprechen über die Moderne, die Rolle Gaudís und den Alltag der Stadt.' },
+          { id: 't2', title: 'Klöster & Wein im Hinterland', subtitle: 'Penedès & Montserrat', duration: 'Ganztags', theme: 'Geschichte', price: 129, image: 'https://images.unsplash.com/photo-1572858806763-0d0c1a45d2cb?q=80&w=1200&auto=format&fit=crop', long: 'Eine Kombination aus Geschichte und Genuss: Montserrat-Kloster und regionale Weintradition mit Degustation.' },
+          { id: 't3', title: 'Küche Kataloniens – Tapas-Workshop', subtitle: 'Gemeinsam kochen & verstehen', duration: 'Halbtags', theme: 'Kulinarik', price: 85, image: 'https://images.unsplash.com/photo-1534080564583-6be75777b70a?q=80&w=1200&auto=format&fit=crop', long: 'Praktischer Workshop mit Produkten vom Markt. Wir kochen, probieren und sprechen über Herkunft, Sprache und Kultur.' },
+          { id: 't4', title: 'Küstenpfade der Costa Brava', subtitle: 'Wandern & kleine Buchten', duration: 'Ganztags', theme: 'Natur', price: 119, image: 'https://images.unsplash.com/photo-1599351430181-74d9f6c7b013?q=80&w=1200&auto=format&fit=crop', long: 'Leichte Wanderung auf Küstenpfaden, Baden in Buchten (saisonal) und Dorfbesuch. Perfekt für Naturliebhaber:innen.' },
+          { id: 't5', title: 'Castellers & Correfoc verstehen', subtitle: 'Feste und ihre Bedeutung', duration: 'Halbtags', theme: 'Geschichte', price: 59, image: 'https://images.unsplash.com/photo-1508948956644-0017e845d797?q=80&w=1200&auto=format&fit=crop', long: 'Einführung in lebendige Traditionen: Menschentürme, Sardana, Correfoc. Kontext, Sicherheit & Teilnahmehinweise.' },
+          { id: 't6', title: 'Girona & Dali: Tagesausflug', subtitle: 'Altstadt, Brücken & Figueres', duration: 'Mehrtagestour', theme: 'Geschichte', price: 149, image: 'https://images.unsplash.com/photo-1567261485587-c3dadba01928?q=80&w=1200&auto=format&fit=crop', long: 'Historische Stadt Girona und Dali-Museum in Figueres mit verständlichen Erklärungen auf Deutsch.' }
+        ],
+
+        items: [
+          { id: 'm1', title: 'Digitaler Stadtführer Barcelona (DE)', subtitle: '3‑Tage‑Route + Insider‑Tipps', category: 'Digitaler Guide', price: 19, image: 'https://images.unsplash.com/photo-1528909514045-2fa4ac7a08ba?q=80&w=1200&auto=format&fit=crop' },
+          { id: 'm2', title: 'Castellers‑Workshop (Ticket)', subtitle: 'Beobachten & Basics lernen', category: 'Ticket', price: 35, image: 'https://images.unsplash.com/photo-1528645601842-39817068e939?q=80&w=1200&auto=format&fit=crop' },
+          { id: 'm3', title: 'Weinprobe Penedès', subtitle: '3 Weingüter, Transfers optional', category: 'Workshop', price: 59, image: 'https://images.unsplash.com/photo-1513302245160-4f26fdb24c2e?q=80&w=1200&auto=format&fit=crop' },
+          { id: 'm4', title: 'Sardana für Einsteiger', subtitle: 'Tanz & Bedeutung', category: 'Workshop', price: 27, image: 'https://images.unsplash.com/photo-1463592177119-bab2a00f3ccb?q=80&w=1200&auto=format&fit=crop' },
+          { id: 'm5', title: 'Keramik aus La Bisbal', subtitle: 'Handgemachte Schale', category: 'Produkt', price: 24, image: 'https://images.unsplash.com/photo-1527090496-3467155c2e4a?q=80&w=1200&auto=format&fit=crop' },
+          { id: 'm6', title: 'Trencadís‑Mosaik‑Workshop', subtitle: 'Gaudí‑Technik ausprobieren', category: 'Workshop', price: 42, image: 'https://images.unsplash.com/photo-1560980653-d8d4bebeeb9e?q=80&w=1200&auto=format&fit=crop' }
+        ],
+
+        posts: [
+          { id: 'b1', title: 'Warum Katalanisch? Eine kurze Einführung für Reisende', tag: 'Sprache', date: '12.08.2025', image: 'https://images.unsplash.com/photo-1541336032412-2048a678540d?q=80&w=1200&auto=format&fit=crop', excerpt: 'Katalanisch ist keine Dialektvariante, sondern eine eigenständige Sprache. Hier erfährst du, wie du dich mit ein paar Wörtern öffnest.', content: `<p><strong>Katalanisch</strong> ist neben Spanisch Amtssprache in Katalonien. Schon wenige Ausdrücke wie <em>Bon dia</em> (Guten Tag) öffnen Türen. In diesem Beitrag: kurze Geschichte, Aussprache‑Basics und praktische Sätze für den Alltag.</p><ul><li>Grüßen & bestellen</li><li>Ortsschilder verstehen</li><li>Warum Sprache Kultur ist</li></ul>` },
+          { id: 'b2', title: 'Castellers: Menschentürme mit System', tag: 'Feste', date: '28.07.2025', image: 'https://images.unsplash.com/photo-1599148400620-6f0f3de23a33?q=80&w=1200&auto=format&fit=crop', excerpt: 'Sicherheit, Struktur und Emotion: So funktionieren Menschentürme – und so beobachtest du respektvoll.', content: `<p>Castellers sind <em>Teamleistung</em> und <em>Mathematik</em>. Wir erklären Positionen, typische Formationen und Sicherheitsregeln. Dazu Tipps, wo man Aufführungen sieht.</p>` },
+          { id: 'b3', title: 'Saisonal essen in Barcelona: 6 Adressen', tag: 'Essen & Trinken', date: '14.06.2025', image: 'https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?q=80&w=1200&auto=format&fit=crop', excerpt: 'Vom Markthallen‑Frühstück bis zum Bodega‑Abend – ohne Touristenfallen.', content: `<p>Diese Liste priorisiert <strong>Saisonalität</strong> und kurze Wege. Wir nennen Märkte, Bodegas und kleine Restaurants mit regionalem Fokus.</p>` },
+          { id: 'b4', title: 'Kurze Geschichte Kataloniens in 7 Stationen', tag: 'Geschichte', date: '02.05.2025', image: 'https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1200&auto=format&fit=crop', excerpt: 'Von mittelalterlichen Handelsstädten bis zur Moderne.', content: `<p>Eine kompakte Zeitreise mit Karte und Literaturtipps für Einsteiger:innen.</p>` },
+          { id: 'b5', title: 'Ein Wochenende an der Costa Brava', tag: 'Reiserouten', date: '21.04.2025', image: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200&auto=format&fit=crop', excerpt: 'Küstenpfade, Dörfer, Buchten. Mit ÖPNV‑Optionen.', content: `<p>Unsere Route eignet sich ohne Auto und zeigt drei sehr unterschiedliche Orte – inkl. Bade‑Stopps und Aussichtspunkten.</p>` }
+        ],
+
+        init() {
+          const poll = () => {
+            if (window.paypal && document.getElementById('paypal-buttons')) {
+              this.renderPayPalButtons();
+              return;
+            }
+            setTimeout(poll, 300);
+          };
+          // Render when cart opens
+          this.$watch('cartOpen', (v) => { if (v) setTimeout(() => this.renderPayPalButtons(), 0); });
+          // Re-render when cart changes
+          this.$watch('cart', () => { if (this.cartOpen) setTimeout(() => this.renderPayPalButtons(), 0); });
+          poll();
+        },
+        get toursFiltered() {
+          return this.tours.filter(t => (
+            (!this.filters.duration || t.duration === this.filters.duration) &&
+            (!this.filters.theme || t.theme === this.filters.theme)
+          ));
+        },
+        get marketFiltered() {
+          const q = this.market.search.toLowerCase();
+          return this.items.filter(i => (
+            (!this.market.category || i.category === this.market.category) &&
+            i.price <= this.market.maxPrice &&
+            (!q || i.title.toLowerCase().includes(q) || i.subtitle.toLowerCase().includes(q))
+          ));
+        },
+        get blogFiltered() {
+          const q = this.blog.search.toLowerCase();
+          return this.posts.filter(p => (
+            (!this.blog.tag || p.tag === this.blog.tag) &&
+            (!q || p.title.toLowerCase().includes(q) || p.excerpt.toLowerCase().includes(q))
+          ));
+        },
+        get cartTotal() {
+          return this.cart.reduce((s, i) => s + i.price, 0);
+        },
+        addToCart(item) {
+          this.cart.push({ ...item });
+          this.cartOpen = true;
+        },
+        openQuickView(t) { this.quickView = t; },
+        openPost(p) { this.activePost = p; this.postOpen = true; },
+        submitLead() { alert('Danke! Ich melde mich per E‑Mail. (Demo)'); },
+        renderPayPalButtons() {
+          const target = document.getElementById('paypal-buttons');
+          if (!target || !window.paypal) return;
+          // Clear previous renders
+          target.innerHTML = '';
+          const total = this.cartTotal.toFixed(2);
+          if (parseFloat(total) <= 0) {
+            target.innerHTML = '<p class="text-sm text-slate-500">Füge Produkte oder Touren hinzu, um zu bezahlen.</p>';
+            return;
+          }
+          paypal.Buttons({
+            style: { layout: 'vertical', shape: 'pill', label: 'pay' },
+            createOrder: (data, actions) => {
+              return actions.order.create({
+                intent: 'CAPTURE',
+                purchase_units: [{
+                  amount: { value: total, currency_code: 'EUR' },
+                  description: 'Katalonien Erleben – Warenkorb',
+                }],
+                application_context: { shipping_preference: 'NO_SHIPPING' }
+              });
+            },
+            onApprove: async (data, actions) => {
+              try {
+                const details = await actions.order.capture();
+                alert('Danke! Zahlung erfolgreich. Bestell-ID: ' + details.id);
+                this.cart = [];
+                this.cartOpen = false;
+              } catch (e) {
+                console.error(e);
+                alert('Unerwarteter Fehler bei der Zahlung.');
+              }
+            },
+            onError: (err) => {
+              console.error(err);
+              alert('PayPal-Fehler. Bitte versuche es erneut.');
+            }
+          }).render('#paypal-buttons');
+        }
+      }
+    }
+  </script>
+</body>
+</html>
